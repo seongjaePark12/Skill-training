@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javagreenS.dao.MemberDAO">
+  <select id="getMemIdCheck" resultType="com.spring.javagreenS.vo.MemberVO">
+    select * from member where mid = #{mid};
+  </select>
+  
+  <select id="getNickNameCheck" resultType="com.spring.javagreenS.vo.MemberVO">
+    select * from member where nickName = #{nickName};
+  </select>
+  
+  <select id="getMemList" resultType="com.spring.javagreenS.vo.MemberVO">
+    select * from member order by idx desc limit #{startIndexNo}, #{pageSize};
+  </select>
+  
+  <select id="getMemIdEmailCheck" resultType="com.spring.javagreenS.vo.MemberVO">
+    select * from member where mid = #{mid} and email = #{toMail};
+  </select>
+  
+  <select id="totRecCnt" resultType="int">
+    select count(*) from member;
+  </select>
+  
+  <select id="getMemEmailCheck" resultType="com.spring.javagreenS.vo.MemberVO">
+    select * from member where email = #{email} limit 1;
+  </select>
+  
+  <select id="getTodayVisitDate" resultType="String">
+    SELECT substring(visitDate,1,10) as visitDate FROM visit ORDER BY visitDate DESC LIMIT 1;
+  </select>
+  
+  <select id="getVisitCount" resultType="com.spring.javagreenS.vo.ChartVO">
+    SELECT substring(lastDate,1,10) AS recently, count(lastDate) AS cnt
+    FROM member GROUP BY substring(lastDate,1,10) ORDER BY lastDate DESC LIMIT 7;
+  </select>
+  
+  <select id="totRecCntAdminMemberList" resultType="int">
+    <if test="level == 99">
+      select count(*) from member;
+    </if>
+    <if test="level != 99">
+      select count(*) from member where level = #{level};
+    </if>
+  </select>
+  
+  <select id="totRecCntAdminMemberMidList" resultType="int">
+    <if test="mid == ''">
+      select count(*) from member;
+    </if>
+    <if test="mid != ''">
+      select count(*) from member where mid = #{mid};
+    </if>
+  </select>
+  
+  <select id="getAdminMemberLevelList" resultType="com.spring.javagreenS.vo.MemberVO">
+    <if test="level == 99">
+      select * from member limit #{startIndexNo}, #{pageSize};
+    </if>
+    <if test="level != 99">
+      select * from member where level = #{level} limit #{startIndexNo}, #{pageSize};
+    </if>
+  </select>
+  
+  <select id="getAdminMemberMidList" resultType="com.spring.javagreenS.vo.MemberVO">
+    <if test="mid == ''">
+      select * from member limit #{startIndexNo}, #{pageSize};
+    </if>
+    <if test="mid != ''">
+      select * from member where mid = #{mid} limit #{startIndexNo}, #{pageSize};
+    </if>
+  </select>
+  
+  
+  
+  <insert id="setMemInputOk">
+    insert into member values (default,#{vo.mid},#{vo.pwd},#{vo.nickName},#{vo.name},#{vo.gender},#{vo.birthday},#{vo.tel},#{vo.address},#{vo.email},#{vo.homePage},#{vo.job},#{vo.hobby},#{vo.photo},#{vo.content},#{vo.userInfor},default,default,default,default,default,default,default);
+  </insert>
+  
+  <insert id="setKakaoMemberInputOk">
+    insert into member values (default,#{mid},#{pwd},#{nickName},'익명','남자',now(),'000-0000-0000',' / / / /',#{email},'http://','기타','기타','noimage.jpg','','공개',default,default,default,default,default,default,default);
+  </insert>
+  
+  <insert id="setTodayVisitCountInsert">
+    insert into visit values (date(now()),default);
+  </insert>
+  
+  
+  
+  <update id="setMemberVisitProcess">
+    update member set todayCnt=#{todayCnt}, visitCnt=visitCnt+1, lastDate=now(), point=point+#{newPoint} where mid = #{mid};
+  </update>
+  
+  <update id="setMemUpdateOk">
+    update member set pwd=#{vo.pwd},nickName=#{vo.nickName},name=#{vo.name},gender=#{vo.gender},birthday=#{vo.birthday},tel=#{vo.tel},address=#{vo.address},email=#{vo.email},homePage=#{vo.homePage},job=#{vo.job},hobby=#{vo.hobby},photo=#{vo.photo},content=#{vo.content} where mid=#{vo.mid};
+  </update>
+
+  <update id="setMemDeleteOk">
+    update member set userDel = 'OK' where mid = #{mid};
+  </update>
+    
+  <update id="setPwdChange">
+    update member set pwd = #{pwd} where mid = #{mid};
+  </update>  
+  
+  <update id="setTodayVisitCountUpdate">
+    update visit set visitCount = visitCount + 1 where substring(visitDate,1,10) = #{strToday};
+  </update>
+  
+  <update id="setAdminLevelUpdate">
+    update member set level = #{level} where idx = #{idx};
+  </update>
+  
+  
+</mapper>

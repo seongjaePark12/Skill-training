@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javagreenS.dao.AdminDAO">
+  
+  <select id="totRecQrCodeTicket" resultType="int">
+    <if test="startJumun == ''">
+      select count(*) from qrCode;
+    </if>
+    <if test="startJumun != ''">
+      SELECT count(*) FROM qrCode 
+      <![CDATA[ WHERE date(concat(substring(qrCode,1,4),"-",substring(qrCode,5,2),"-",substring(qrCode,7,2))) >= date(#{startJumun}) AND date(concat(substring(qrCode,1,4),"-",substring(qrCode,5,2),"-",substring(qrCode,7,2))) <= date(#{endJumun}) ]]>;
+    </if>
+  </select>
+  
+  <select id="getQrCodeCondition" resultType="com.spring.javagreenS.vo.QrCodeVO">
+    <if test="startJumun == ''">
+      select * from qrCode order by idx desc limit #{startIndexNo},#{pageSize};
+    </if>
+    <if test="startJumun != ''">
+      SELECT * FROM qrCode 
+      <![CDATA[ WHERE date(concat(substring(qrCode,1,4),"-",substring(qrCode,5,2),"-",substring(qrCode,7,2))) >= date(#{startJumun}) AND date(concat(substring(qrCode,1,4),"-",substring(qrCode,5,2),"-",substring(qrCode,7,2))) <= date(#{endJumun}) ]]>
+      order by idx desc limit #{startIndexNo},#{pageSize};
+    </if>
+  </select>
+  
+  <select id="getQrCodeName" resultType="String">
+    select qrCode from qrCode where idx = #{idx};
+  </select>
+  
+  <select id="totRecCntAdmin" resultType="int">
+    <if test="part == '전체'">
+      select count(*) from inquiry;
+    </if>
+    <if test="part != '전체'">
+      select count(*) from inquiry where reply = #{part};
+    </if>
+  </select>
+  
+  <select id="getInquiryListAdmin" resultType="com.spring.javagreenS.vo.InquiryVO">
+    <if test="part == '전체'">
+      select * from inquiry order by idx desc limit #{startIndexNo},#{pageSize};
+    </if>
+    <if test="part != '전체'">
+      select * from inquiry where reply = #{part} order by idx desc limit #{startIndexNo},#{pageSize};
+    </if>
+  </select>
+  
+  <select id="getInquiryContent" resultType="com.spring.javagreenS.vo.InquiryVO">
+    select * from inquiry where idx = #{idx};
+  </select>
+  
+  <select id="getInquiryReplyContent" resultType="com.spring.javagreenS.vo.InquiryReplyVO">
+    select * from inquiryReply where inquiryIdx = #{idx};
+  </select>
+  
+  
+  
+  <insert id="setInquiryInputAdmin">
+    insert into inquiryReply values (default,#{vo.inquiryIdx},default,#{vo.reContent});
+  </insert>
+  
+  
+  <update id="setInquiryReplyUpdate">
+    update inquiryReply set reContent = #{reVo.reContent} where reIdx = #{reVo.reIdx};
+  </update>
+  
+  <update id="setInquiryUpdateAdmin">
+    update inquiry set reply = '답변완료' where idx = #{inquiryIdx};
+  </update>
+  
+  
+  <delete id="setQrCodeDelete">
+    delete from qrCode where idx = #{vo.idx};
+  </delete>
+  
+  <delete id="setQrCodeSelectDelete">
+    delete from qrCode where idx = #{idx};
+  </delete>
+  
+  <delete id="setInquiryReplyDelete">
+    delete from inquiryReply where reIdx = #{reIdx};
+  </delete>
+  
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans
+													http://www.springframework.org/schema/beans/spring-beans.xsd">
+			<!-- 생성자를 이용한 값의 주입 -->										
+			<bean id="vo1" class="t1214.test7.SungjukVO">
+				<constructor-arg>
+					<value>홍길동</value>
+				</constructor-arg>
+				<constructor-arg>
+					<value>100</value>
+				</constructor-arg>
+				<constructor-arg>
+					<value>80</value>
+				</constructor-arg>
+			</bean>
+			<bean id="sungjukService1" class="t1214.test7.SungjukService">
+				<constructor-arg>
+					<ref bean="vo1"/>
+				</constructor-arg>
+			</bean>	
+			<bean id="vo2" class="t1214.test7.SungjukVO">
+				<constructor-arg>
+					<value>김말숙</value>
+				</constructor-arg>
+				<constructor-arg>
+					<value>60</value>
+				</constructor-arg>
+				<constructor-arg>
+					<value>80</value>
+				</constructor-arg>
+			</bean>
+			<bean id="sungjukService2" class="t1214.test7.SungjukService">
+				<constructor-arg>
+					<ref bean="vo2"/>
+				</constructor-arg>
+			</bean>	
+			<bean id="vo3" class="t1214.test7.SungjukVO">
+				<constructor-arg>
+					<value>이기자</value>
+				</constructor-arg>
+				<constructor-arg>
+					<value>60</value>
+				</constructor-arg>
+				<constructor-arg>
+					<value>80</value>
+				</constructor-arg>
+			</bean>
+			<bean id="sungjukService3" class="t1214.test7.SungjukService">
+				<constructor-arg>
+					<ref bean="vo3"/>
+				</constructor-arg>
+			</bean>	
+			
+</beans>

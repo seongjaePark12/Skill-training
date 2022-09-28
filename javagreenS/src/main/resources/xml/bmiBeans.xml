@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans
+													http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="bmiCalcVO" class="t1214.test5.BMICalcVO">
+		<property name="lowWeight" value="18.5"/>
+		<property name="normal" value="18.5"/>
+		<property name="overWeight" value="23"/>
+		<property name="obesity" value="25"/>
+	</bean>												
+																			
+	<bean id="pVo1" class="t1214.test5.PersonVO">
+		<property name="name" value="김말숙"/>
+		<property name="height" value="153.6"/>
+		<property name="weight" value="52.5"/>
+		<property name="bmiCalcVO">				<!-- 클래스 변수명 -->
+			<ref bean="bmiCalcVO"/> <!-- 앞에서 기술한 id -->
+		</property>
+	</bean>																									
+	<bean id="pVo2" class="t1214.test5.PersonVO">
+		<property name="name" value="홍길동"/>
+		<property name="height" value="189.5"/>
+		<property name="weight" value="90.5"/>
+		<property name="bmiCalcVO">				<!-- 클래스 변수명 -->
+			<ref bean="bmiCalcVO"/> <!-- 앞에서 기술한 id -->
+		</property>
+	</bean>																									
+	<bean id="pVo3" class="t1214.test5.PersonVO">
+		<property name="name" value="박성재"/>
+		<property name="height" value="182.5"/>
+		<property name="weight" value="85.5"/>
+		<property name="bmiCalcVO">				<!-- 클래스 변수명 -->
+			<ref bean="bmiCalcVO"/> <!-- 앞에서 기술한 id -->
+		</property>
+	</bean>																									
+</beans>

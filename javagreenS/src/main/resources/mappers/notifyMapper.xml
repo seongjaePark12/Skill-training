@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.javagreenS.dao.NotifyDAO">
+	<select id="getNotifyList" resultType="com.spring.javagreenS.vo.NotifyVO">
+	  select * from notify order by idx desc;
+	</select>
+	
+	<select id="getNUpdate" resultType="com.spring.javagreenS.vo.NotifyVO">
+	  select * from notify where idx = #{idx};
+	</select>
+	
+	<select id="getNotifyPopup" resultType="com.spring.javagreenS.vo.NotifyVO">
+  	select * from notify where popupSw = 'Y';
+  </select>
+	
+	<select id="getNofifyView" resultType="com.spring.javagreenS.vo.NotifyVO">
+  	<!-- select * from notify where popupSw = 'Y' and idx = #{idx}; -->
+  	select * from notify where idx = #{idx};
+  </select>
+	
+	<insert id="nInput">
+	  insert into notify values (default,#{vo.name},#{vo.title},#{vo.content},#{vo.startDate},#{vo.endDate},#{vo.popupSw});
+	</insert>
+	
+	<update id="setNUpdateOk">
+	  update notify set name=#{vo.name}, title=#{vo.title}, content=#{vo.content}, startDate=#{vo.startDate}, endDate=#{vo.endDate}, popupSw=#{vo.popupSw} where idx=#{vo.idx};
+	</update>
+	
+	<update id="setpopupCheckUpdate">
+	  update notify set popupSw = #{popupSw} where idx= #{idx};
+	</update>
+	
+	<delete id="setDelete">
+	  delete from notify where idx = #{idx};
+	</delete>
+</mapper>

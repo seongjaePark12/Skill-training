@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans
+													http://www.springframework.org/schema/beans/spring-beans.xsd">
+													
+	<!-- CalzulatorService 객체 생성 -->												
+	<!-- <bean id="calc" class="t1214.test4.CalculatorService"/>				 -->								
+													
+	<!-- setter에 의한 값의 주입  -->							
+	<bean id="vo" class="t1214.test4.CalculatorVO">
+		<property name="su1"><value>500</value></property> <!-- vo.setSu1(500) -->
+		<property name="su2" value="300"/>
+		<!-- 
+		<property name="calculator">
+			<ref bean="calc"/>
+		</property>
+		 -->
+	</bean>												
+																										
+</beans>

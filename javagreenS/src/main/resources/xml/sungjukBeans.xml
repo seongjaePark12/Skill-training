@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans
+													http://www.springframework.org/schema/beans/spring-beans.xsd">
+													
+			<bean id="sungjukService" class="t1214.test6.SungjukService"/>	
+			
+			<bean id="vo1" class="t1214.test6.SungjukVO">
+				<property name="name" value="홍길동"/>
+				<property name="kor" value="20"/>
+				<property name="eng" value="90"/>
+				<property name="sungjukService">
+					<ref bean="sungjukService"/>
+				</property>
+			</bean>						
+			<bean id="vo2" class="t1214.test6.SungjukVO">
+				<property name="name" value="김말숙"/>
+				<property name="kor" value="90"/>
+				<property name="eng" value="70"/>
+				<property name="sungjukService">
+					<ref bean="sungjukService"/>
+				</property>
+			</bean>						
+			<bean id="vo3" class="t1214.test6.SungjukVO">
+				<property name="name" value="이기자"/>
+				<property name="kor" value="60"/>
+				<property name="eng" value="40"/>
+				<property name="sungjukService">
+					<ref bean="sungjukService"/>
+				</property>
+			</bean>						
+</beans>
